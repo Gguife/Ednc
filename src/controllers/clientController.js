@@ -51,10 +51,23 @@ class ClientController {
   updateClient(req, res){
     try{
       const id = req.params.id;
-      const password = req.body.password;
+      const updates = {};
 
-      database.where({id:id}).update({password: password}).table("clients").then(data => {
-        res.json({message: "Senha alterada com sucesso!"})
+      if(req.body.email){
+        updates.email = req.body.email;
+      }
+      if(req.body.password){
+        updates.password = req.body.password;
+      }
+      if(req.body.phoneNumber){
+        updates.phoneNumber = req.body.phoneNumber;
+      }
+      if(Object.keys(updates) === 0){
+        return res.status(400).json({message: "Nenhuma informação para atualizar."})
+      }
+
+      database.where({id:id}).update(updates).table("clients").then(data =>{
+        res.json({message: "Informações do cliente atualizadas com sucesso!"})
       })
     }
     catch(error){
