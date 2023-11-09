@@ -6,7 +6,10 @@ const CategoryController = require("../controllers/categoryController");
 
 //Client
 router.post("/newClient", ClientController.newClient);
-
+router.get("/clients", ClientController.allClientsList);
+router.get("/client/:id", ClientController.clientList);
+router.put("/update/client/:id", ClientController.updateClient);
+router.delete("/delete/client/:id", ClientController.deleteClient);
 
 //Categories
 router.post("/newCategory", CategoryController.newCategory);
